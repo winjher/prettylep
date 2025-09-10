@@ -1,0 +1,5 @@
+Requirement,Min,Max,Optimal,Type,Photoperiod,Intensity,Air Changes Per Hour,Circulation
+Temperature Range (Celsius),24,30,27,,,,
+Humidity Range (Percentage),60,85,75,,,,
+Lighting,,,,Natural or LED,"12:12 (12 hours light, 12 hours dark)",Medium to bright,,
+Ventilation,,,,,,,,,4,"Gentle, avoid drafts"
