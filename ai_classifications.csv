@@ -24,3 +24,12 @@ timestamp,analysis_type,user,predicted_species,species_confidence,predicted_stag
 2025-09-05 13:50:28,Pupae Defect Analysis,Guest User,Overbend,0.6312777400016785
 2025-09-10 09:56:06,Species Identification,Guest User,Butterfly-Gray Glassy Tiger,0.999530553817749
 2025-09-10 13:12:30,Species Identification,Guest User,Butterfly-Common Lime,0.9999991655349731
+2025-10-08 12:01:19,Species Identification,Guest User,Butterfly-Common Lime,0.540033757686615
+2025-10-08 12:01:54,Lifecycle Stage,Guest User,Pupae,0.648506224155426
+2025-10-08 12:11:30,Lifecycle Stage,Guest User,Pupae,0.6138287782669067
+2025-10-08 12:15:11,Lifecycle Stage,Guest User,Pupae,0.9655733704566956
+2025-10-08 12:16:35,Species Identification,Guest User,Butterfly-Common Lime,0.6901290416717529
+2025-10-08 12:17:55,Species Identification,Guest User,Butterfly-Common Lime,1.0
+2025-10-08 12:18:28,Lifecycle Stage,Guest User,Butterfly,0.9999513626098633
+2025-10-08 12:37:25,Lifecycle Stage,Guest User,Butterfly,0.9999513626098633
+2025-10-08 12:41:15,Lifecycle Stage,Guest User,Larvae,0.9996528625488281

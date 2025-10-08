@@ -127,7 +127,7 @@ class ButterflyApp:
 
     def _display_image_and_analysis_button(self):
         """Displays the uploaded image and the 'Analyze' button."""
-        col1, col2 = st.columns([1, 2])
+        col1, col2, col3 = st.columns([1, 2, 3])
         with col1:
             st.image(st.session_state.image, caption="Uploaded Image", use_container_width=True)
         
@@ -138,6 +138,24 @@ class ButterflyApp:
             
             if st.button("🔍 Analyze Image", type="primary"):
                 self._handle_analysis()
+       # ...CM...
+        with col3:
+            st.write("**Confusion Matrix & F1-Score:**")
+            if st.session_state.analysis_results:
+                for key, value in st.session_state.analysis_results.items():
+                    # Show confusion matrix if available
+                    confusion_matrix = value.get("confusion_matrix")
+                    f1_score = value.get("f1_score")
+                    st.write(f"**{key.capitalize()}:**")
+                    if confusion_matrix is not None:
+                        st.write("Confusion Matrix:")
+                        st.dataframe(pd.DataFrame(confusion_matrix))
+                    else:
+                        st.write("_No confusion matrix available._")
+                    if f1_score is not None:
+                        st.metric("F1-Score", f"{f1_score:.3f}")
+                    else:
+                        st.write("_No F1-score available._")
 
         if st.session_state.analysis_results:
             self._display_results(st.session_state.analysis_results)
@@ -527,24 +545,39 @@ class ButterflyApp:
         """Display recent classification results from the CSV file."""
         st.subheader("📊 Recent Classifications")
         classifications_df = load_from_csv(CLASSIFICATION_CSV)
-        
+
         if not classifications_df.empty:
             recent_classifications = classifications_df.tail(10).sort_values('timestamp', ascending=False)
             st.dataframe(recent_classifications, use_container_width=True)
-            
+
             st.write("**Classification Statistics:**")
-            col1, col2, col3 = st.columns(3)
+            col1, col2, col3, col4, col5, col6 = st.columns(6)
+            
             with col1:
                 st.metric("Total Classifications", len(classifications_df))
             with col2:
-                if 'predicted_species' in classifications_df.columns:
-                    st.metric("Species Identified", classifications_df['predicted_species'].nunique())
+                # Count non-empty species classifications
+                species_count = classifications_df['predicted_species'].notna().sum()
+                st.metric("Species Identified", species_count)
             with col3:
+                # Count non-empty life stage classifications
+                stage_count = classifications_df['predicted_stage'].notna().sum()
+                st.metric("Life Stages Classified", stage_count)
+            with col4:
+                # Count non-empty larval disease classifications
+                disease_count = classifications_df['predicted_disease'].notna().sum()
+                st.metric("Larval Diseases Classified", disease_count)
+            with col5:
+                # Count non-empty pupae defect classifications
+                defect_count = classifications_df['predicted_defect'].notna().sum()
+                st.metric("Pupae Defects Classified", defect_count)
+            with col6:
                 today = datetime.date.today().strftime('%Y-%m-%d')
-                today_classifications = len(classifications_df[classifications_df['timestamp'].str.startswith(today)])
+                today_classifications = len(classifications_df[classifications_df['timestamp'].astype(str).str.startswith(today)])
                 st.metric("Today's Classifications", today_classifications)
         else:
             st.info("No classifications performed yet. Upload an image to get started!")
-if __name__ == '__main__':
+        
+def ai_classification_app():
     app = ButterflyApp()
     app.run()
