@@ -33,3 +33,28 @@ timestamp,analysis_type,user,predicted_species,species_confidence,predicted_stag
 2025-10-08 12:18:28,Lifecycle Stage,Guest User,Butterfly,0.9999513626098633
 2025-10-08 12:37:25,Lifecycle Stage,Guest User,Butterfly,0.9999513626098633
 2025-10-08 12:41:15,Lifecycle Stage,Guest User,Larvae,0.9996528625488281
+2025-10-08 14:21:35,Species Identification,Guest User,Butterfly-Emerald Swallowtail,0.9925376772880554
+2025-10-08 14:23:24,Lifecycle Stage,Guest User,Butterfly,0.9964052438735962
+2025-10-08 14:32:02,Lifecycle Stage,Guest User,Butterfly,0.9964052438735962
+2025-10-08 14:32:58,Species Identification,Guest User,Butterfly-Pink Rose,0.924168586730957
+2025-10-08 14:43:47,Species Identification,Guest User,Butterfly-Pink Rose,0.924168586730957
+2025-10-08 14:44:23,Lifecycle Stage,Guest User,Butterfly,0.9999719858169556
+2025-10-08 15:00:06,Species Identification,Guest User,Butterfly-Great Eggfly,0.9999924898147583
+2025-10-08 15:05:24,Species Identification,Guest User,Butterfly-Great Eggfly,0.9999924898147583
+2025-10-08 15:06:10,Lifecycle Stage,Guest User,Butterfly,0.999885082244873
+2025-10-08 15:07:15,Lifecycle Stage,Guest User,Butterfly,0.999885082244873
+2025-10-08 15:09:31,Lifecycle Stage,Guest User,Butterfly,0.999885082244873
+2025-10-08 15:15:23,Lifecycle Stage,Guest User,Butterfly,0.999885082244873
+2025-10-08 15:16:11,Lifecycle Stage,Guest User,Butterfly,0.999885082244873
+2025-10-08 15:18:37,Lifecycle Stage,Guest User,Butterfly,0.999885082244873
+2025-10-08 15:22:03,Lifecycle Stage,Guest User,Butterfly,0.999885082244873
+2025-10-08 15:30:50,Species Identification,Guest User,Butterfly-Common Mime,0.9996060729026794
+2025-10-08 15:31:38,Species Identification,Guest User,Butterfly-Common Mime,0.9996060729026794
+2025-10-08 15:36:21,Species Identification,Guest User,Butterfly-Common Mime,0.9996060729026794
+2025-10-08 15:37:44,Lifecycle Stage,Guest User,Butterfly,0.9986494183540344
+2025-10-08 15:54:20,Larval Disease Detection,Guest User,Nucleopolyhedrosis,0.966839611530304
+2025-10-08 15:58:27,Larval Disease Detection,Guest User,Nucleopolyhedrosis,0.966839611530304
+2025-10-08 16:04:47,Larval Disease Detection,Guest User,Nucleopolyhedrosis,0.966839611530304
+2025-10-08 16:10:04,Larval Disease Detection,Guest User,Nucleopolyhedrosis,0.9990038275718689
+2025-10-08 16:28:49,Larval Disease Detection,Guest User,Nucleopolyhedrosis,0.871273934841156
+2025-10-09 11:39:21,Species Identification,Guest User,Butterfly-Plain Tiger,0.998471200466156

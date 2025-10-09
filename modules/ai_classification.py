@@ -139,8 +139,7 @@ class ButterflyApp:
             
             if st.button("🔍 Analyze Image", type="primary"):
                 self._handle_analysis()
-
-
+        
         if st.session_state.analysis_results:
             self._display_results(st.session_state.analysis_results)
 
@@ -561,9 +560,7 @@ class ButterflyApp:
                 st.metric("Today's Classifications", today_classifications)
         else:
             st.info("No classifications performed yet. Upload an image to get started!")
-  
-           
-
-if __name__ == '__main__':
+        
+def ai_classification_app():
     app = ButterflyApp()
     app.run()

@@ -1,6 +1,6 @@
 import streamlit as st
 import os
-# from modules.database import init_database
+#from modules.database import init_database
 from modules.auth import handle_authentication
 #from modules.breeding_management import breeding_management_app
 from modules.ai_classification import ai_classification_app
