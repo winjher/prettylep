@@ -402,6 +402,19 @@ class ButterflyApp:
 
     def _get_recommended_actions(self, classification_result, classifier_type):
         """Get recommended actions based on the classification results."""
+        # Add col3 for Model Accuracy bar
+        col3 = st.columns([1, 2, 3])[2]
+        with col3:
+            st.write("**Model Accuracy**")
+            # Show percentage bar for top prediction if available
+            if (
+                st.session_state.analysis_results
+                and "species" in st.session_state.analysis_results
+            ):
+                top_pred = st.session_state.analysis_results["species"]["confidence"]
+                st.progress(top_pred, text=f"Butterfly Species: {top_pred:.1%}")
+            else:
+                st.write("- Butterfly Species: ~92%")
         recommendations = []
         class_name = classification_result['predicted_class']
         

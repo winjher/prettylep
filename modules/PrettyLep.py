@@ -40,7 +40,7 @@ def _get_base64_image(image_path):
 
 # --- Apply the background image ---
 # Ensure 'icon/bg.png' is in the correct path relative to your Streamlit app's root
-set_background_image('icon/bg.png') 
+set_background_image('icon/bg.jpg') 
 #set_background_image('icon/bgbutterfly.jpg') 
 # --- Glasmorphism CSS ---
 st.markdown(
