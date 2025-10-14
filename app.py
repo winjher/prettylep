@@ -16,7 +16,7 @@ from modules.profile_management import profile_management_app
 #from modules.landing_page import enhanced_landing_page
 # from modules.database import initialize_databases
 #from modules.ui_components import apply_glassmorphism_style, set_background_image
-#from modules.larval_stages import larval_stages_app
+from modules.larval_stages import larval_stages_app
 #from modules.database import database_app
 #from modules.profit_calculator import calculate_batch_app
 # from modules.batch_management import get_active_batches_count
@@ -60,7 +60,7 @@ def main():
         "👤 My Profile": "profile",
         # "💎 Premium System": "premium",
         # "🦋 Breeding Management": "breeding",
-        # "🐛 Larval Stages": "larval_stages",
+        "🐛 Larval Stages": "larval_stages",
         "🤖 AI Classification": "ai_classification",
         # "💰 Point of Sale": "pos",
         # "📊 Sales Tracking": "sales_tracking",
@@ -135,8 +135,8 @@ def main():
     #     faculty_dashboard_app()
     # elif app_key == "purchaser_profile":
     #     purchaser_profile_app()
-    # elif app_key == "larval_stages":
-    #     larval_stages_app()
+    elif app_key == "larval_stages":
+        larval_stages_app()
     # elif app_key == "batch_management":
     #     batch_management_app()
     # elif app_key == "host_plants":

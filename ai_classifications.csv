@@ -59,3 +59,4 @@ timestamp,analysis_type,user,predicted_species,species_confidence,predicted_stag
 2025-10-08 16:28:49,Larval Disease Detection,Guest User,Nucleopolyhedrosis,0.871273934841156
 2025-10-09 11:39:21,Species Identification,Guest User,Butterfly-Plain Tiger,0.998471200466156
 2025-10-13 13:58:05,Pupae Defect Analysis,Guest User,Deformed body,0.814143180847168
+2025-10-13 17:03:47,Lifecycle Stage,Guest User,Pupae,0.8924481868743896
