@@ -60,3 +60,16 @@ timestamp,analysis_type,user,predicted_species,species_confidence,predicted_stag
 2025-10-09 11:39:21,Species Identification,Guest User,Butterfly-Plain Tiger,0.998471200466156
 2025-10-13 13:58:05,Pupae Defect Analysis,Guest User,Deformed body,0.814143180847168
 2025-10-13 17:03:47,Lifecycle Stage,Guest User,Pupae,0.8924481868743896
+2025-10-14 15:52:14,Species Identification,sarah,Butterfly-Common Jay,0.9939047694206238
+2025-10-14 15:52:47,Lifecycle Stage,sarah,Butterfly,0.9973874688148499
+2025-10-14 15:54:14,Species Identification,sarah,Butterfly-Common Mime,0.9996060729026794
+2025-10-14 15:54:28,Lifecycle Stage,sarah,Butterfly,0.9986494183540344
+2025-10-14 15:55:01,Species Identification,sarah,Moth-Giant Silk,0.9914602041244507
+2025-10-14 15:55:15,Lifecycle Stage,sarah,Pupae,0.9535694718360901
+2025-10-14 15:55:45,Lifecycle Stage,sarah,Pupae,0.9535694718360901
+2025-10-14 15:56:00,Lifecycle Stage,sarah,Butterfly,0.9858762621879578
+2025-10-14 15:56:14,Species Identification,sarah,Butterfly-Tailed Jay,0.6217145919799805
+2025-10-14 15:56:40,Species Identification,sarah,Moth-Giant Silk,0.9889935851097107
+2025-10-14 15:56:51,Lifecycle Stage,sarah,Butterfly,0.9873835444450378
+2025-10-15 14:28:02,Lifecycle Stage,hei,Larvae,0.9498140811920166
+2025-10-15 14:28:43,Larval Disease Detection,hei,Nucleopolyhedrosis,0.7049411535263062
