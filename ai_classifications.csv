@@ -73,3 +73,16 @@ timestamp,analysis_type,user,predicted_species,species_confidence,predicted_stag
 2025-10-14 15:56:51,Lifecycle Stage,sarah,Butterfly,0.9873835444450378
 2025-10-15 14:28:02,Lifecycle Stage,hei,Larvae,0.9498140811920166
 2025-10-15 14:28:43,Larval Disease Detection,hei,Nucleopolyhedrosis,0.7049411535263062
+2025-10-15 15:30:18,Lifecycle Stage,hei,Larvae,0.9498140811920166
+2025-10-15 15:31:13,Species Identification,hei,Butterfly-Great Eggfly,0.9999806880950928
+2025-10-15 15:31:52,Lifecycle Stage,hei,Butterfly,0.9999990463256836
+2025-10-16 15:15:16,Species Identification,jerwin,Butterfly-Golden Birdwing,0.9994238615036011
+2025-10-16 15:17:06,Lifecycle Stage,jerwin,Butterfly,0.9926714897155762
+2025-10-16 15:18:16,Larval Disease Detection,jerwin,Nucleopolyhedrosis,0.94289630651474
+2025-10-16 15:23:00,Larval Disease Detection,jerwin,Nucleopolyhedrosis,0.94289630651474
+2025-10-16 15:23:49,Lifecycle Stage,jerwin,Larvae,0.9998546838760376
+2025-10-16 15:25:10,Pupae Defect Analysis,jerwin,Stretch abdomen,0.9902933835983276
+2025-10-16 15:25:58,Pupae Defect Analysis,jerwin,Stretch abdomen,0.9902933835983276
+2025-10-16 15:26:42,Lifecycle Stage,jerwin,Pupae,0.9599624872207642
+2025-10-16 15:28:49,Lifecycle Stage,jerwin,Larvae,0.5966817736625671
+2025-10-16 15:29:11,Lifecycle Stage,jerwin,Larvae,0.9999326467514038

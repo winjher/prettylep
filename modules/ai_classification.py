@@ -128,7 +128,7 @@ class ButterflyApp:
 
     def _display_image_and_analysis_button(self):
         """Displays the uploaded image and the 'Analyze' button."""
-        col1, col2, col3 = st.columns([1, 2, 3])
+        col1, col2 = st.columns([1, 2])
         with col1:
             st.image(st.session_state.image, caption="Uploaded Image", use_container_width=True)
         
@@ -346,8 +346,8 @@ class ButterflyApp:
         
         with col2:
             health_score, quality_grade = self._calculate_health_score_and_grade(disease_result, "Larval Diseases")
-            st.metric("Health Score", f"{health_score:.1f}%")
-            st.write(f"**Quality Grade:** {quality_grade}")
+            #st.metric("Health Score", f"{health_score:.1f}%")
+            #st.write(f"**Quality Grade:** {quality_grade}")
             
             recommendations = self._get_recommended_actions(disease_result, "Larval Diseases")
             if recommendations:
@@ -367,9 +367,9 @@ class ButterflyApp:
             st.write(f"**Quality Information:** {defect_result['quality_info']}")
         
         with col2:
-            health_score, quality_grade = self._calculate_health_score_and_grade(defect_result, "Pupae Defects")
-            st.metric("Health Score", f"{health_score:.1f}%")
-            st.write(f"**Quality Grade:** {quality_grade}")
+            # health_score, quality_grade = self._calculate_health_score_and_grade(defect_result, "Pupae Defects")
+            # st.metric("Health Score", f"{health_score:.1f}%")
+            # st.write(f"**Quality Grade:** {quality_grade}")
             
             recommendations = self._get_recommended_actions(defect_result, "Pupae Defects")
             if recommendations:

@@ -2,7 +2,7 @@ import streamlit as st
 import os
 #from modules.database import init_database
 from modules.auth import handle_authentication
-#from modules.breeding_management import breeding_management_app
+from modules.breeding_management import breeding_management_app
 from modules.ai_classification import ai_classification_app
 #from modules.point_of_sale import point_of_sale_app
 #from modules.sales_tracking import sales_tracking_app
@@ -473,7 +473,7 @@ def main():
         "🏠 Dashboard": "dashboard",
         "👤 My Profile": "profile",
         # "💎 Premium System": "premium",
-        # "🦋 Breeding Management": "breeding",
+        "🦋 Breeding Management": "breeding",
         "🐛 Larval Stages": "larval_stages",
         "🤖 AI Classification": "ai_classification",
         # "💰 Point of Sale": "pos",
@@ -533,8 +533,8 @@ def main():
     #     admin_premium_management()
     # elif app_key == "email_notifications":
     #     email_notifications_app()
-    # elif app_key == "breeding":
-    #     breeding_management_app()
+    elif app_key == "breeding":
+        breeding_management_app()
     elif app_key == "ai_classification":
         ai_classification_app()
     # elif app_key == "pos":
