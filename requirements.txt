@@ -1,12 +1,14 @@
 # Core ML stack
+tensorflow==2.15.0
 jax==0.4.38
 jaxlib==0.4.38
 ml-dtypes>=0.4.0
 numpy>=1.24.0,<1.27.0
-tensorflow==2.15.0
 flax==0.9.0
 chex==0.1.87
 dm-tree==0.1.8
+streamlit==1.33.0
+
 
 # Streamlit + UI
 streamlit==1.33.0
@@ -27,3 +29,4 @@ h5py==3.11.0
 # Optional: for API or backend
 fastapi==0.115.5
 uvicorn==0.29.0
+
