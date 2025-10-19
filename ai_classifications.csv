@@ -87,3 +87,4 @@ timestamp,analysis_type,user,predicted_species,species_confidence,predicted_stag
 2025-10-16 15:28:49,Lifecycle Stage,jerwin,Larvae,0.5966817736625671
 2025-10-16 15:29:11,Lifecycle Stage,jerwin,Larvae,0.9999326467514038
 2025-10-17 13:56:10,Pupae Defect Analysis,jerwin,Stretch abdomen,0.9898267984390259
+2025-10-18 21:59:49,Lifecycle Stage,jerwin,Pupae,0.995766282081604
