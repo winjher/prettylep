@@ -88,3 +88,9 @@ timestamp,analysis_type,user,predicted_species,species_confidence,predicted_stag
 2025-10-16 15:29:11,Lifecycle Stage,jerwin,Larvae,0.9999326467514038
 2025-10-17 13:56:10,Pupae Defect Analysis,jerwin,Stretch abdomen,0.9898267984390259
 2025-10-18 21:59:49,Lifecycle Stage,jerwin,Pupae,0.995766282081604
+2025-10-19 14:11:33,Species Identification,jerwin,Butterfly-Golden Birdwing,0.4693455994129181
+2025-10-19 14:11:53,Lifecycle Stage,jerwin,Larvae,0.9999840259552002
+2025-10-19 14:13:03,Larval Disease Detection,jerwin,Nucleopolyhedrosis,0.9975722432136536
+2025-10-19 14:14:09,Lifecycle Stage,jerwin,Larvae,0.9998704195022583
+2025-10-19 14:15:01,Pupae Defect Analysis,jerwin,Overbend,0.6912303566932678
+2025-10-19 14:16:00,Lifecycle Stage,jerwin,Pupae,0.9951872825622559
