@@ -1,6 +1,6 @@
 # Core ML
-#tensorflow==2.15.0
-tensorflow==2.20.0
+tensorflow==2.15.0
+#tensorflow==2.20.0
 jax==0.4.38
 jaxlib==0.4.38
 ml-dtypes>=0.4.0
