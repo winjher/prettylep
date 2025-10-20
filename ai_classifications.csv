@@ -99,3 +99,4 @@ timestamp,analysis_type,user,predicted_species,species_confidence,predicted_stag
 2025-10-20 09:17:54,Larval Disease Detection,jerwin,Healthy,0.7739218473434448
 2025-10-20 09:19:19,Species Identification,jerwin,Butterfly-Scarlet Mormon,0.9987611770629883
 2025-10-20 09:20:15,Lifecycle Stage,jerwin,Butterfly,0.6370532512664795
+2025-10-20 09:48:29,Species Identification,jerwin,Butterfly-Clippers,0.5431368947029114
