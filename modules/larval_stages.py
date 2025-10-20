@@ -709,6 +709,19 @@ def ai_larval_stages_classifier(image_file, model, larval_stages_names: List[str
                 class_name = larval_stages_names[i]
                 score = result[i] * 100
                 top_predictions.append({"larval_stages_names": class_name, "score": float(score)}) # Ensure float
+                st.write("**Top 3 Predictions:**")
+                top3 = result['top_3']
+                # Prepare data for the chart
+                chart_data = pd.DataFrame({
+                    "Larval Stages": [pred['larval_stages_names'] for pred in top3],
+                    "Confidence": [pred['score'] for pred in top3]  # Convert to percentage
+                })
+                st.bar_chart(chart_data.set_index("Larval Stages"))
+
+                #Optionally, still show the text list
+                for i, pred in enumerate(top3, 1):
+                    st.write(f"{i}. {pred['class']} ({pred['confidence']:.1%})")
+
 
         predicted_class_index = np.argmax(result)
         predicted_score = np.max(result).item() * 100
