@@ -95,3 +95,7 @@ timestamp,analysis_type,user,predicted_species,species_confidence,predicted_stag
 2025-10-19 14:15:01,Pupae Defect Analysis,jerwin,Overbend,0.6912303566932678
 2025-10-19 14:16:00,Lifecycle Stage,jerwin,Pupae,0.9951872825622559
 2025-10-19 17:35:53,Lifecycle Stage,jerwin,Butterfly,0.9999828338623047
+2025-10-20 09:17:06,Lifecycle Stage,jerwin,Eggs,0.5122889876365662
+2025-10-20 09:17:54,Larval Disease Detection,jerwin,Healthy,0.7739218473434448
+2025-10-20 09:19:19,Species Identification,jerwin,Butterfly-Scarlet Mormon,0.9987611770629883
+2025-10-20 09:20:15,Lifecycle Stage,jerwin,Butterfly,0.6370532512664795
