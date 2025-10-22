@@ -107,3 +107,5 @@ timestamp,analysis_type,user,predicted_species,species_confidence,predicted_stag
 2025-10-21 16:58:05,Species Identification,jerwin,Butterfly-Clippers,0.6760557293891907
 2025-10-21 17:17:20,Species Identification,jerwin,Butterfly-Common Mime,0.6016703248023987
 2025-10-21 17:17:30,Species Identification,jerwin,Butterfly-Common Mime,0.6016703248023987
+2025-10-21 17:38:54,Pupae Defect Analysis,jerwin,Old Pupa,0.6692243814468384
+2025-10-21 17:44:33,Pupae Defect Analysis,jerwin,Old Pupa,0.8795981407165527
