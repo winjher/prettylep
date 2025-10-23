@@ -870,7 +870,7 @@ def _display_recent_classifications():
         recent = df.sort_values('timestamp', ascending=False).head(10)
         
         # Display the table
-        st.dataframe(recent, use_container_width=True)
+        st.dataframe(recent, width='content', height=300)
 
         st.write("**Classification Statistics:**")
         col1, col2 = st.columns(2)
@@ -960,7 +960,7 @@ def larval_stages_app():
             "Pupa (days)": [d[5] for d in LIFECYCLE_DURATIONS.values()],
         }
         df = pd.DataFrame(data)
-        st.dataframe(df, use_container_width=True)
+        st.dataframe(df, width='content', height=400)
         
         
         # --- Section 1: Find the Current Stage ---
