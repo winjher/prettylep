@@ -130,7 +130,7 @@ class ButterflyApp:
         """Displays the uploaded image and the 'Analyze' button."""
         col1, col2 = st.columns([1, 2])
         with col1:
-            st.image(st.session_state.image, caption="Uploaded Image", width=content)
+            st.image(st.session_state.image, caption="Uploaded Image", width='content')
         
         with col2:
             st.write("**Image Information:**")

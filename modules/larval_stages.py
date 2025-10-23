@@ -799,7 +799,7 @@ def _display_recent_classifications():
     if not df.empty:
         # Sort and display the 10 most recent classifications
         recent = df.sort_values('timestamp', ascending=False).head(10)
-        st.dataframe(recent, width=content)
+        st.dataframe(recent, width='content')
 
         st.write("**Classification Statistics:**")
         col1, col2 = st.columns(2)
