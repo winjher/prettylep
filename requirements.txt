@@ -4,7 +4,7 @@ tensorflow==2.20.0
 jax==0.4.38
 jaxlib==0.4.38
 ml-dtypes>=0.5.1
-numpy>=2.1.0
+numpy>=2.3.0
 flax==0.9.0
 chex==0.1.87
 dm-tree==0.1.8
