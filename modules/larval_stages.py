@@ -918,6 +918,33 @@ def larval_stages_app():
                         prediction_result = ai_larval_stages_classifier(image_file, larval_stages_model, LARVAL_STAGES_NAMES)
                     
                     if prediction_result and prediction_result.get('score', 0) > 0:
+                         # --- CLASSIFICATION RESULT ---
+                        st.success(f"**Predicted Larval Stage:** {prediction_result['larval_stages_names']} with a confidence of {prediction_result['score']:.2f}%")
+                        save_larval_stage_prediction(prediction_result)
+                        
+                        # --- LIFECYCLE TRACE RESULT (NEW) ---
+                        # The index (0-13) corresponds to Day 1-14. Add 1 to get the predicted day.
+                        predicted_day = prediction_result.get('index', -1) + 1 
+                        
+                        if predicted_day >= 1:
+                            trace_result = trace_days_before_pupae(selected_species_ai, predicted_day)
+                            
+                            st.markdown("---")
+                            st.subheader("Lifecycle Trace Result (Based on Prediction)")
+                            
+                            if 'error' in trace_result:
+                                st.error(trace_result['error'])
+                            elif trace_result['status'] == "Larval Stage":
+                                st.info(f"The predicted stage (Day **{predicted_day}**) means the **{selected_species_ai}** is expected to start its pupa stage in **{trace_result['days_remaining']} days** (on Day {trace_result['pupa_start_day']}).")
+                            elif trace_result['status'] == "In Pupa Stage":
+                                st.warning(f"The predicted stage (Day **{predicted_day}**) means the **{selected_species_ai}** is already a pupa. {trace_result['message']}")
+                            else: # Adult Stage
+                                st.warning(f"The predicted stage (Day **{predicted_day}**) corresponds to the adult phase. {trace_result['message']}")
+
+                        else:
+                             st.error("Could not determine the larval day from the model prediction index.")
+                            
+                        # --- TOP PREDICTIONS & CHART ---
                         st.success(f"**Predicted Larval Stage:** {prediction_result['larval_stages_names']} with a confidence of {prediction_result['score']:.2f}%")
                         save_larval_stage_prediction(prediction_result)
                         
