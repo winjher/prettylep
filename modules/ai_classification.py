@@ -440,11 +440,7 @@ class ButterflyApp:
             'timestamp': datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
             'analysis_type': st.session_state.analysis_type,
             'user': st.session_state.username,
-            # 'image_size': st.session_state.image.size if st.session_state.image else None,
-            # 'image_mode': st.session_state.image.mode if st.session_state.image else None,
-            # 'models_used': ', '.join([key for key, model in self._models.items() if model is not None]),
-            # 'plant': ''.join(SPECIES_HOST_PLANTS).get(results.get("species", {}).get("predicted_class"), [])
-        }
+            }
         
         if "species" in results:
             analysis_data.update({
@@ -500,29 +496,6 @@ class ButterflyApp:
             st.write("🏥 **Diseases:** 4 larval disease types")
             st.write("🔍 **Defects:** 6 pupae defect types")
 
-    # def _display_recent_classifications(self):
-    #     """Display recent classification results from the CSV file."""
-    #     st.subheader("📊 Recent Classifications")
-    #     classifications_df = load_from_csv(CLASSIFICATION_CSV)
-        
-    #     if not classifications_df.empty:
-    #         recent_classifications = classifications_df.tail(10).sort_values('timestamp', ascending=False)
-    #         st.dataframe(recent_classifications, use_container_width=True)
-            
-    #         st.write("**Classification Statistics:**")
-    #         col1, col2, col3 = st.columns(3)
-    #         with col1:
-    #             st.metric("Total Classifications", len(classifications_df))
-    #         with col2:
-    #             if 'predicted_species' in classifications_df.columns:
-    #                 st.metric("Species Identified", classifications_df['predicted_species'].nunique())
-    #         with col3:
-    #             today = datetime.date.today().strftime('%Y-%m-%d')
-    #             today_classifications = len(classifications_df[classifications_df['timestamp'].str.startswith(today)])
-    #             st.metric("Today's Classifications", today_classifications)
-    #     else:
-    #         st.info("No classifications performed yet. Upload an image to get started!")
- # ...existing methods...
 
     def _display_recent_classifications(self):
         """Display recent classification results from the CSV file."""

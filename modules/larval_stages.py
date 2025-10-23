@@ -909,6 +909,10 @@ def larval_stages_app():
         st.subheader("AI-Larval Stages Classifier")
         st.write("Upload an image of a larva to predict its current stage. Prediction requires the Keras model to be present.")
         image_file = st.file_uploader("Upload an Image", type=["jpg", "png", "jpeg"])
+        image = Image.open(image_file)
+        img_resized = image.resize(IMAGE_SIZE)
+        img_array = tf.keras.utils.img_to_array(img_resized)
+        img_array = tf.expand_dims(img_array, 0)
         
         if image_file is not None:
             st.image(image_file, caption='Uploaded Image', width='content')
