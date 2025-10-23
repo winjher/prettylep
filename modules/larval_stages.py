@@ -911,7 +911,7 @@ def larval_stages_app():
         image_file = st.file_uploader("Upload an Image", type=["jpg", "png", "jpeg"])
         
         if image_file is not None:
-            st.image(image_file, caption='Uploaded Image', use_column_width=True)
+            st.image(image_file, caption='Uploaded Image', width='content')
             if st.button("Classify Image", key="classify_btn"):
                 if larval_stages_model:
                     with st.spinner('Classifying...'):
@@ -963,7 +963,7 @@ def larval_stages_app():
 
                         # Display top 3 predictions in a structured list
                         for i, pred in enumerate(top_predictions_data, 1):
-                            st.write(f"**{i}. {pred['larval_stages_names']}**: {pred['score']:.2f}%")
+                            st.write(f"**{i}. {pred['larval_stages_names']}**: {pred['score']:.2f}%", width='stretch')
                     else:
                         st.warning("Classification failed or model returned an unknown class.")
                 else:
@@ -987,7 +987,7 @@ def larval_stages_app():
             "Pupa (days)": [d[5] for d in LIFECYCLE_DURATIONS.values()],
         }
         df = pd.DataFrame(data)
-        st.dataframe(df, width='content', height=400)
+        st.dataframe(df, width='stretch', height=400)
         
         
         # --- Section 1: Find the Current Stage ---
