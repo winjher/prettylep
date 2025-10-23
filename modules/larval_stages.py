@@ -621,7 +621,6 @@
 #     """)
 #     st.markdown("---")
 #     st.markdown("Created with ❤️ using Streamlit")
-
 import os
 import csv
 import datetime
@@ -633,10 +632,10 @@ from PIL import Image
 from typing import Dict, Any, List
 
 # --- Configuration Constants ---
+# NOTE: For this code to run locally, you must ensure 'model/model_Larval_Stages.h5' exists.
 MODEL_DIR: str = 'model'
 MODEL_NAME: str = 'model_Larval_Stages.h5'
 IMAGE_SIZE: tuple = (180, 180)
-IMAGE_SIZE = (180, 180)
 CLASSIFICATION_CSV: str = 'ai_larval_stages_classification.csv'
 
 # Class names used by the AI model
@@ -675,17 +674,28 @@ LIFECYCLE_DURATIONS: Dict[str, List[int]] = {
 def load_model(model_name: str):
     """Loads a Keras model once using Streamlit's cache."""
     model_path = os.path.join(MODEL_DIR, model_name)
-    if not os.path.exists(model_path):
-        st.error(f"Model not found at: {model_path}.")
+    
+    # Check if the model directory or file exists (crucial for Streamlit)
+    if not os.path.exists(MODEL_DIR):
+        st.error(f"Model directory '{MODEL_DIR}' not found. Please create it and place the model file inside.")
         return None
+    if not os.path.exists(model_path):
+        st.error(f"Model not found at: {model_path}. Please check the path and file name.")
+        return None
+        
     try:
+        # Suppress TensorFlow warnings during loading
+        os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
         return tf.keras.models.load_model(model_path)
     except Exception as e:
-        st.error(f"Error loading {model_name} Model: {e}")
+        st.error(f"Error loading {model_name} Model. This often means the model file is corrupted or TensorFlow is configured incorrectly: {e}")
         return None
 
 def ai_larval_stages_classifier(image_file, model, larval_stages_names: List[str]) -> Dict[str, Any]:
-    """Classifies an uploaded image using the AI model."""
+    """
+    Classifies an uploaded image using the AI model and returns classification data.
+    The function handles preprocessing and returns the data structure required by the app.
+    """
     default_error = {"larval_stages_names": "Model/Classification Error", "score": 0.0, "index": -1, "top_predictions": []}
 
     if model is None:
@@ -693,12 +703,16 @@ def ai_larval_stages_classifier(image_file, model, larval_stages_names: List[str
 
     try:
         image = Image.open(image_file)
+        # Ensure we are using the correct image format (RGB)
+        if image.mode != 'RGB':
+            image = image.convert('RGB')
+            
         img_resized = image.resize(IMAGE_SIZE)
         img_array = tf.keras.utils.img_to_array(img_resized)
         img_array = tf.expand_dims(img_array, 0) # Add batch dimension
 
-        predictions = model.predict(img_array, verbose=0) # Suppress prediction output
-        result = tf.nn.softmax(predictions[0]).numpy() # Convert to numpy array once
+        predictions = model.predict(img_array, verbose=0)
+        result = tf.nn.softmax(predictions[0]).numpy()
 
         # Get top 3 predictions
         top_indices = np.argsort(result)[::-1][:3]
@@ -707,21 +721,8 @@ def ai_larval_stages_classifier(image_file, model, larval_stages_names: List[str
         for i in top_indices:
             if i < len(larval_stages_names):
                 class_name = larval_stages_names[i]
-                score = result[i] * 100
-                top_predictions.append({"larval_stages_names": class_name, "score": float(score)}) # Ensure float
-                st.write("**Top 3 Predictions:**")
-                top3 = result['top_3']
-                # Prepare data for the chart
-                chart_data = pd.DataFrame({
-                    "Larval Stages": [pred['larval_stages_names'] for pred in top3],
-                    "Confidence": [pred['score'] for pred in top3]  # Convert to percentage
-                })
-                st.bar_chart(chart_data.set_index("Larval Stages"))
-
-                #Optionally, still show the text list
-                for i, pred in enumerate(top3, 1):
-                    st.write(f"{i}. {pred['class']} ({pred['confidence']:.1%})")
-
+                score = result[i].item() * 100 # Use .item() to ensure native Python float
+                top_predictions.append({"larval_stages_names": class_name, "score": float(score)})
 
         predicted_class_index = np.argmax(result)
         predicted_score = np.max(result).item() * 100
@@ -735,7 +736,6 @@ def ai_larval_stages_classifier(image_file, model, larval_stages_names: List[str
                 "top_predictions": top_predictions
             }
         else:
-            # Handle cases where the index is unexpected (e.g., if a background class was index N)
             return default_error
 
     except Exception as e:
@@ -746,11 +746,15 @@ def save_larval_stage_prediction(prediction_result: Dict[str, Any]):
     """Save larval stage prediction to CSV."""
     file_exists = os.path.isfile(CLASSIFICATION_CSV)
     
+    # Handle the case where the parent directory might not exist (less common in Streamlit, but good practice)
+    os.makedirs(os.path.dirname(CLASSIFICATION_CSV) or '.', exist_ok=True)
+    
     with open(CLASSIFICATION_CSV, mode='a', newline='', encoding='utf-8') as file:
         writer = csv.writer(file)
         
         # Write header if file is new or empty
-        if not file_exists or os.stat(CLASSIFICATION_CSV).st_size == 0:
+        is_empty = os.stat(CLASSIFICATION_CSV).st_size == 0
+        if not file_exists or is_empty:
             writer.writerow(['timestamp', 'predicted_stage', 'score'])
             
         writer.writerow([
@@ -774,32 +778,99 @@ def get_larval_stages(species_name: str, days_passed: int) -> str:
     # Check Instar stages (5 stages)
     for i in range(5):
         cumulative_days += instar_days[i]
+        # Pupa starts on the day after the Instar stage ends
         if days_passed <= cumulative_days:
-            return f"The {species_name} is currently in **Instar {i + 1}**."
+            return f"The {species_name} is currently in **Instar {i + 1}** (Day {days_passed} of the total larval period)."
             
     # Check Pupa stage
-    pupa_start_day = cumulative_days
-    pupa_end_day = pupa_start_day + pupa_duration
+    pupa_start_day = cumulative_days + 1
+    pupa_end_day = pupa_start_day + pupa_duration - 1
     
     if days_passed <= pupa_end_day:
-        days_in_pupa = days_passed - pupa_start_day
-        return f"The {species_name} is a **pupa**. It has been in this stage for **{days_in_pupa}** days."
+        days_in_pupa = days_passed - (pupa_start_day - 1)
+        return f"The {species_name} is a **pupa**. It has been in this stage for **{days_in_pupa}** day(s) (Pupa stage lasts {pupa_duration} days)."
         
     # Must be adult stage
-    return f"The {species_name} has **emerged as an adult**."
+    return f"The {species_name} has **emerged as an adult** (since Day {pupa_end_day + 1})."
+
+def trace_days_before_pupae(species_name: str, current_day: int) -> Dict[str, Any]:
+    """
+    Calculates the days remaining until the pupa stage starts for a given species 
+    and current day of larval development.
+    """
+    
+    if species_name not in LIFECYCLE_DURATIONS:
+        return {"error": f"Error: '{species_name}' data not available in the database."}
+
+    # The first 5 elements are the instar durations (larval stage)
+    instar_durations = LIFECYCLE_DURATIONS[species_name][:5] 
+    
+    # Calculate the total duration of the larval stage (before pupa starts)
+    total_larval_days = sum(instar_durations)
+    
+    # The pupa stage is considered to START on the day AFTER the last instar is complete.
+    pupa_start_day = total_larval_days + 1
+    pupa_duration = LIFECYCLE_DURATIONS[species_name][5]
+    pupa_end_day = pupa_start_day + pupa_duration - 1
+
+
+    if current_day > pupa_end_day:
+        # Adult stage
+        return {
+            "status": "Adult Stage",
+            "message": f"The {species_name} has already emerged as an adult (on day {pupa_end_day + 1})."
+        }
+    elif current_day >= pupa_start_day:
+        # Pupa stage
+        days_in_pupa = current_day - total_larval_days
+        days_remaining_pupa = pupa_end_day - current_day + 1
+        return {
+            "status": "In Pupa Stage",
+            "pupa_start_day": pupa_start_day,
+            "days_remaining": 0,
+            "message": f"The {species_name} is a **pupa**. Days remaining until emergence: **{days_remaining_pupa}** day(s)."
+        }
+    elif current_day < 1:
+        # Invalid input for days
+        return {
+            "status": "Invalid Input",
+            "message": "The current day must be 1 or greater."
+        }
+    else:
+        # Larval Stage
+        days_remaining = pupa_start_day - current_day
+        
+        return {
+            "status": "Larval Stage",
+            "current_day": current_day,
+            "pupa_start_day": pupa_start_day,
+            "days_remaining": days_remaining,
+            "message": f"The {species_name} is expected to start its pupa stage in **{days_remaining} days** (on day {pupa_start_day})."
+        }
 
 def _display_recent_classifications():
     """Display recent larval stage classification results from the CSV file."""
     st.subheader("📊 Recent Larval Stage Classifications")
-    if not os.path.exists(CLASSIFICATION_CSV):
+    if not os.path.exists(CLASSIFICATION_CSV) or os.stat(CLASSIFICATION_CSV).st_size == 0:
         st.info("No classifications performed yet. Upload an image to get started!")
         return
 
-    df = pd.read_csv(CLASSIFICATION_CSV)
+    try:
+        df = pd.read_csv(CLASSIFICATION_CSV)
+    except pd.errors.EmptyDataError:
+        st.info("The classification log file is empty.")
+        return
+    except Exception as e:
+        st.error(f"Error reading classification log: {e}")
+        return
+
     if not df.empty:
-        # Sort and display the 10 most recent classifications
+        # Convert timestamp to datetime and sort
+        df['timestamp'] = pd.to_datetime(df['timestamp'])
         recent = df.sort_values('timestamp', ascending=False).head(10)
-        st.dataframe(recent, width='content')
+        
+        # Display the table
+        st.dataframe(recent, use_container_width=True)
 
         st.write("**Classification Statistics:**")
         col1, col2 = st.columns(2)
@@ -809,12 +880,14 @@ def _display_recent_classifications():
         
         with col2:
             if 'predicted_stage' in df.columns:
-                most_common = df['predicted_stage'].mode().iloc[0] if not df['predicted_stage'].mode().empty else "N/A"
+                # Get the most common stage
+                most_common_df = df['predicted_stage'].mode()
+                most_common = most_common_df.iloc[0] if not most_common_df.empty else "N/A"
                 st.metric("Most Common Stage", most_common)
             else:
                 st.metric("Most Common Stage", "N/A")
     else:
-        st.info("No classifications performed yet. Upload an image to get started!")
+        st.info("The classification log file is empty.")
 
 # --- Main Streamlit App ---
 
@@ -823,7 +896,7 @@ def larval_stages_app():
     
     st.set_page_config(page_title="Butterfly & Moth Larval Stages Tracker 🦋", layout="wide")
     st.title("Butterfly & Moth Larval Stages Tracker 🐛🦋")
-    st.markdown("This application helps you track the **larval stages** of various butterflies and moths.")
+    st.markdown("This application helps you track the **larval stages** of various butterflies and moths using AI classification and biological data modeling.")
 
     # Load the AI model
     larval_stages_model = load_model(MODEL_NAME)
@@ -834,11 +907,11 @@ def larval_stages_app():
     # Tab 1: AI classifier
     with tab1:
         st.subheader("AI-Larval Stages Classifier")
-        st.write("Upload an image of a larva to predict its current stage.")
+        st.write("Upload an image of a larva to predict its current stage. Prediction requires the Keras model to be present.")
         image_file = st.file_uploader("Upload an Image", type=["jpg", "png", "jpeg"])
         
         if image_file is not None:
-            st.image(image_file, caption='Uploaded Image', width='content')
+            st.image(image_file, caption='Uploaded Image', use_column_width=True)
             if st.button("Classify Image", key="classify_btn"):
                 if larval_stages_model:
                     with st.spinner('Classifying...'):
@@ -849,14 +922,25 @@ def larval_stages_app():
                         save_larval_stage_prediction(prediction_result)
                         
                         st.write("---")
-                        st.subheader("Top Predictions")
+                        st.subheader("Top 3 Predictions")
+                        
+                        # Prepare data for the chart from top_predictions
+                        top_predictions_data = prediction_result['top_predictions']
+                        chart_data = pd.DataFrame({
+                            "Larval Stages": [pred['larval_stages_names'] for pred in top_predictions_data],
+                            "Confidence (%)": [pred['score'] for pred in top_predictions_data]
+                        })
+                        
+                        # Display the bar chart
+                        st.bar_chart(chart_data.set_index("Larval Stages"))
+
                         # Display top 3 predictions in a structured list
-                        for pred in prediction_result['top_predictions']:
-                            st.write(f"- **{pred['larval_stages_names']}**: {pred['score']:.2f}%")
+                        for i, pred in enumerate(top_predictions_data, 1):
+                            st.write(f"**{i}. {pred['larval_stages_names']}**: {pred['score']:.2f}%")
                     else:
                         st.warning("Classification failed or model returned an unknown class.")
                 else:
-                    st.error("Model could not be loaded. Please check the model directory.")
+                    st.error("Model could not be loaded. Please ensure the model file is correctly placed.")
         
         st.divider()
         _display_recent_classifications() # Call the display function
@@ -876,38 +960,72 @@ def larval_stages_app():
             "Pupa (days)": [d[5] for d in LIFECYCLE_DURATIONS.values()],
         }
         df = pd.DataFrame(data)
-        st.dataframe(df, width='content')
+        st.dataframe(df, use_container_width=True)
         
+        
+        # --- Section 1: Find the Current Stage ---
         st.divider()
-        st.subheader("Find the Current Stage by Day Count")
+        st.subheader("🔢 Find the Current Stage by Day Count")
+        st.markdown("Input the days since hatching to see the current theoretical stage.")
+        
+        species_list = list(LIFECYCLE_DURATIONS.keys())
         
         col1, col2 = st.columns(2)
         with col1:
-            species_list = list(LIFECYCLE_DURATIONS.keys())
-            selected_species = st.selectbox("Select a Species:", species_list)
+            selected_species_stage = st.selectbox("Select a Species (Stage Check):", species_list, key="stage_species_select")
         with col2:
-            days_passed = st.number_input("Enter the number of days since the egg hatched:", min_value=0, max_value=100, value=1)
+            days_passed_stage = st.number_input("Enter the number of days since the egg hatched (Stage Check):", min_value=0, max_value=100, value=1, key="stage_days_input")
             
         if st.button("Check Stage", key="check_stage_btn"):
-            if selected_species and days_passed is not None:
-                stage_result = get_larval_stages(selected_species, days_passed)
+            if selected_species_stage and days_passed_stage is not None:
+                stage_result = get_larval_stages(selected_species_stage, days_passed_stage)
                 st.info(stage_result)
             else:
                 st.error("Please select a species and enter a valid number of days.")
 
-    st.divider()
-    st.subheader("How The Lifecycle Tracker Works")
-    st.markdown("""
-    The app calculates the cumulative number of days for each stage based on a **fixed dataset of lifecycle durations**.
-    
-    - **Instar Stages:** The initial larval stages, where the caterpillar grows and molts.
-    - **Pupa Stage:** The transformation stage inside a chrysalis or cocoon.
-    - **Adult Stage:** The final stage, where the butterfly or moth has emerged.
 
-    *Note: The data provided is for illustrative purposes and may not reflect actual biological lifecycles.*
-    """)
-    st.markdown("---")
-    st.markdown("Created with ❤️ using Streamlit")
+        # --- Section 2: Trace Days Before Pupa (New Feature) ---
+        st.divider()
+        st.subheader("🐛 Days Remaining Until Pupa Stage")
+        st.markdown("Use this to project how many more days the larva will be feeding before it pupates.")
+        
+        col3, col4 = st.columns(2)
+        with col3:
+            selected_species_pupa = st.selectbox("Select a Species (Pupa Trace):", species_list, key="pupa_species_select")
+        with col4:
+            current_day_pupa = st.number_input("Enter Current Larval Day (1-100):", min_value=1, max_value=100, value=1, key="pupa_days_input")
+        
+        if st.button("Trace Days Before Pupa", key="trace_pupa_btn"):
+            if selected_species_pupa and current_day_pupa is not None:
+                trace_result = trace_days_before_pupae(selected_species_pupa, current_day_pupa)
+                
+                if 'error' in trace_result:
+                    st.error(trace_result['error'])
+                else:
+                    # Display the main result message
+                    if trace_result['status'] == "Larval Stage":
+                        st.success(trace_result['message'])
+                    elif trace_result['status'] == "In Pupa Stage":
+                        st.info(trace_result['message'])
+                    else:
+                        st.warning(trace_result['message'])
+                    
+                    # Display key metrics only if still in a calculated stage
+                    if trace_result['status'] == "Larval Stage":
+                        st.metric(label="Days Remaining until Pupa", 
+                                  value=f"{trace_result['days_remaining']} days",
+                                  delta=f"Pupa starts on day {trace_result['pupa_start_day']}",
+                                  delta_color="off"
+                        )
+                    elif trace_result['status'] == "In Pupa Stage":
+                        st.metric(label="Pupa Emergence Day", 
+                                  value=f"Day {LIFECYCLE_DURATIONS[selected_species_pupa][:5]}",
+                                  delta=f"{LIFECYCLE_DURATIONS[selected_species_pupa][5]} day Pupa period",
+                                  delta_color="off"
+                        )
+            else:
+                st.error("Please select a species and enter a valid current day.")
+
 
 if __name__ == '__main__':
     larval_stages_app()

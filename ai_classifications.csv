@@ -109,3 +109,5 @@ timestamp,analysis_type,user,predicted_species,species_confidence,predicted_stag
 2025-10-21 17:17:30,Species Identification,jerwin,Butterfly-Common Mime,0.6016703248023987
 2025-10-21 17:38:54,Pupae Defect Analysis,jerwin,Old Pupa,0.6692243814468384
 2025-10-21 17:44:33,Pupae Defect Analysis,jerwin,Old Pupa,0.8795981407165527
+2025-10-23 14:24:56,Lifecycle Stage,jerwin,Butterfly,0.9999738931655884
+2025-10-23 14:25:29,Species Identification,jerwin,Butterfly-Common Jay,0.9998243451118469
