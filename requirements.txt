@@ -3,7 +3,7 @@ tensorflow==2.20.0
 jax==0.4.38
 jaxlib==0.4.38
 ml-dtypes==0.5.1
-numpy==1.26.4  # Compatible with TensorFlow, JAX, Streamlit, scikit-learn
+numpy>=2.1.0  # Compatible with TensorFlow, JAX, Streamlit, scikit-learn
 
 # Model and training utilities
 flax==0.9.0
