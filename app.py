@@ -439,7 +439,7 @@ st.markdown(
 )
 
 # ADD this as the very first Streamlit command:
-st.set_page_config(page_title="AI Butterfly Classification", page_icon="🦋", layout="wide")
+st.set_page_config(page_title="LepVision", page_icon="🦋", layout="wide")
 
 # st.set_page_config(
 #     page_title="🦋 Butterfly Breeding Ecosystem",
