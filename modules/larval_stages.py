@@ -1,4 +1,3 @@
-
 import os
 import csv
 import datetime
@@ -80,6 +79,7 @@ def ai_larval_stages_classifier(image_file, model, larval_stages_names: List[str
         return default_error
 
     try:
+        # **FIXED:** Image processing is correctly done here, inside the classification function
         image = Image.open(image_file)
         # Ensure we are using the correct image format (RGB)
         if image.mode != 'RGB':
@@ -281,19 +281,29 @@ def larval_stages_app():
 
     # Create tabs
     tab1, tab2 = st.tabs(["🧠 AI-Larval Stages Classifier", "🦋 Lifecycle Data"])
+    
+    species_list = list(LIFECYCLE_DURATIONS.keys())
 
     # Tab 1: AI classifier
     with tab1:
         st.subheader("AI-Larval Stages Classifier")
         st.write("Upload an image of a larva to predict its current stage. Prediction requires the Keras model to be present.")
+        
+        # **FIXED:** Added selectbox for the user to choose the species for lifecycle trace
+        selected_species_ai = st.selectbox(
+            "Select the Species for Lifecycle Tracing (Based on Image):", 
+            species_list, 
+            key="ai_species_select_tab1"
+        )
+        
         image_file = st.file_uploader("Upload an Image", type=["jpg", "png", "jpeg"])
-        image = Image.open(image_file)
-        img_resized = image.resize(IMAGE_SIZE)
-        img_array = tf.keras.utils.img_to_array(img_resized)
-        img_array = tf.expand_dims(img_array, 0)
 
         if image_file is not None:
-            st.image(image_file, caption='Uploaded Image', width='content')
+            # **FIXED:** Removed redundant pre-processing code that would crash if no file was uploaded
+            # The actual image loading is now inside the classifier function
+            
+            st.image(image_file, caption='Uploaded Image', use_column_width=True)
+            
             if st.button("Classify Image", key="classify_btn"):
                 if larval_stages_model:
                     with st.spinner('Classifying...'):
@@ -304,11 +314,12 @@ def larval_stages_app():
                         st.success(f"**Predicted Larval Stage:** {prediction_result['larval_stages_names']} with a confidence of {prediction_result['score']:.2f}%")
                         save_larval_stage_prediction(prediction_result)
                         
-                        # --- LIFECYCLE TRACE RESULT (NEW) ---
+                        # --- LIFECYCLE TRACE RESULT ---
                         # The index (0-13) corresponds to Day 1-14. Add 1 to get the predicted day.
                         predicted_day = prediction_result.get('index', -1) + 1 
                         
                         if predicted_day >= 1:
+                            # **FIXED:** Use the newly defined selected_species_ai variable
                             trace_result = trace_days_before_pupae(selected_species_ai, predicted_day)
                             
                             st.markdown("---")
@@ -327,8 +338,6 @@ def larval_stages_app():
                              st.error("Could not determine the larval day from the model prediction index.")
                             
                         # --- TOP PREDICTIONS & CHART ---
-                        st.success(f"**Predicted Larval Stage:** {prediction_result['larval_stages_names']} with a confidence of {prediction_result['score']:.2f}%")
-                        save_larval_stage_prediction(prediction_result)
                         
                         st.write("---")
                         st.subheader("Top 3 Predictions")
@@ -345,7 +354,7 @@ def larval_stages_app():
 
                         # Display top 3 predictions in a structured list
                         for i, pred in enumerate(top_predictions_data, 1):
-                            st.write(f"**{i}. {pred['larval_stages_names']}**: {pred['score']:.2f}%", width='stretch')
+                            st.write(f"**{i}. {pred['larval_stages_names']}**: {pred['score']:.2f}%", use_column_width=True)
                     else:
                         st.warning("Classification failed or model returned an unknown class.")
                 else:
@@ -369,15 +378,13 @@ def larval_stages_app():
             "Pupa (days)": [d[5] for d in LIFECYCLE_DURATIONS.values()],
         }
         df = pd.DataFrame(data)
-        st.dataframe(df, width='stretch', height=400)
+        st.dataframe(df, use_column_width=True, height=400)
         
         
         # --- Section 1: Find the Current Stage ---
         st.divider()
         st.subheader("🔢 Find the Current Stage by Day Count")
         st.markdown("Input the days since hatching to see the current theoretical stage.")
-        
-        species_list = list(LIFECYCLE_DURATIONS.keys())
         
         col1, col2 = st.columns(2)
         with col1:
@@ -427,8 +434,13 @@ def larval_stages_app():
                                   delta_color="off"
                         )
                     elif trace_result['status'] == "In Pupa Stage":
+                        # **FIXED:** Correctly calculate the emergence day
+                        total_larval_days = sum(LIFECYCLE_DURATIONS[selected_species_pupa][:5])
+                        pupa_start_day = total_larval_days + 1
+                        pupa_end_day = pupa_start_day + LIFECYCLE_DURATIONS[selected_species_pupa][5] - 1
+                        
                         st.metric(label="Pupa Emergence Day", 
-                                  value=f"Day {LIFECYCLE_DURATIONS[selected_species_pupa][:5]}",
+                                  value=f"Day {pupa_end_day}",
                                   delta=f"{LIFECYCLE_DURATIONS[selected_species_pupa][5]} day Pupa period",
                                   delta_color="off"
                         )
