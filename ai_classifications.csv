@@ -116,3 +116,5 @@ timestamp,analysis_type,user,predicted_species,species_confidence,predicted_stag
 2025-10-23 16:13:46,Species Identification,jerwin,Butterfly-Gray Glassy Tiger,0.9944546818733215
 2025-10-27 16:32:06,Species Identification,jerwin,Butterfly-Golden Birdwing,0.9287810921669006
 2025-10-27 16:32:52,Lifecycle Stage,jerwin,Butterfly,1.0
+2025-10-28 10:01:53,Species Identification,jerwin,Butterfly-Emerald Swallowtail,0.9937188625335693
+2025-10-28 10:02:21,Lifecycle Stage,jerwin,Butterfly,0.9886108040809631
