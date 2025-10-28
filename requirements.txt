@@ -5,6 +5,7 @@ jaxlib==0.4.38
 ml-dtypes==0.5.1
  # Compatible with TensorFlow, JAX, Streamlit, scikit-learn
 numpy==2.3.4
+pipdeptree==2.13.0
 
 
 # Model and training utilities
