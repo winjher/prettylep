@@ -27,8 +27,7 @@ python-decouple==3.8
 scikit-learn==1.4.2
 
 # Optional: Logging and formatting
-rich==14.2.0
+rich==13.7.1
 markdown-it-py==4.0.0
 pygments==2.19.2
 mdurl==0.1.2
-rich==14.2.0
