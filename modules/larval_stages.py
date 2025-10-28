@@ -379,7 +379,9 @@ def larval_stages_app():
         }
         df = pd.DataFrame(data)
         st.dataframe(df, use_container_width=True, height=400)
-        
+       
+       
+
         
         # --- Section 1: Find the Current Stage ---
         st.divider()
