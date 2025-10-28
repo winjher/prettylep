@@ -302,7 +302,7 @@ def larval_stages_app():
             # **FIXED:** Removed redundant pre-processing code that would crash if no file was uploaded
             # The actual image loading is now inside the classifier function
             
-            st.image(image_file, caption='Uploaded Image', use_container_width=True')
+            st.image(image_file, caption='Uploaded Image', use_container_width=True)
             
             if st.button("Classify Image", key="classify_btn"):
                 if larval_stages_model:
