@@ -504,7 +504,7 @@ class ButterflyApp:
 
         if not classifications_df.empty:
             recent_classifications = classifications_df.tail(10).sort_values('timestamp', ascending=False)
-            st.dataframe(recent_classifications, use_container_width=True)
+            st.dataframe(recent_classifications, width='stretch')
 
             st.write("**Classification Statistics:**")
             col1, col2, col3, col4, col5, col6 = st.columns(6)

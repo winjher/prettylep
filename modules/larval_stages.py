@@ -17,10 +17,10 @@ CLASSIFICATION_CSV: str = 'ai_larval_stages_classification.csv'
 
 # Class names used by the AI model
 LARVAL_STAGES_NAMES: List[str] = [
-    'day 01', 'day 02-first instar', 'day 03', 'day 04-second instar',
-    'day 05', 'day 06-third instar', 'day 07', 'day 08-fourth instar',
-    'day 09', 'day 10-fifth instar', 'day 11', 'day 12',
-    'day 13', 'day 14'
+    'day 01-Larvae Common Lime', 'day 02-Larvae Common Lime first instar', 'day 03-Larvae Common Lime', 'day 04-Larvae Common Lime second instar',
+    'day 05-Larvae Common Lime', 'day 06-Larvae Common Lime third instar', 'day 07-Larvae Common Lime', 'day 08-Larvae Common Lime fourth instar',
+    'day 09-Larvae Common Lime', 'day 10-Larvae Common Lime fifth instar', 'day 11-Larvae Common Lime', 'day 12-Larvae Common Lime',
+    'day 13-Larvae Common Lime', 'day 14-Larvae Common Lime',
 ]
 
 # Lifecycle data: [Instar 1-5 durations (days), Pupa duration (days)]
@@ -248,7 +248,7 @@ def _display_recent_classifications():
         recent = df.sort_values('timestamp', ascending=False).head(10)
         
         # Display the table
-        st.dataframe(recent, width='content', height=300)
+        st.dataframe(recent, width='content')
 
         st.write("**Classification Statistics:**")
         col1, col2 = st.columns(2)
@@ -378,7 +378,7 @@ def larval_stages_app():
             "Pupa (days)": [d[5] for d in LIFECYCLE_DURATIONS.values()],
         }
         df = pd.DataFrame(data)
-        st.dataframe(df, width='content', height=400)
+        st.dataframe(df, width='content')
        
        
 
