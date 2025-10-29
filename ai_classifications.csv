@@ -118,3 +118,9 @@ timestamp,analysis_type,user,predicted_species,species_confidence,predicted_stag
 2025-10-27 16:32:52,Lifecycle Stage,jerwin,Butterfly,1.0
 2025-10-28 10:01:53,Species Identification,jerwin,Butterfly-Emerald Swallowtail,0.9937188625335693
 2025-10-28 10:02:21,Lifecycle Stage,jerwin,Butterfly,0.9886108040809631
+2025-10-28 15:07:28,Species Identification,jerwin,Butterfly-Common Jay,0.9588454365730286
+2025-10-28 15:08:49,Lifecycle Stage,jerwin,Butterfly,0.9999876022338867
+2025-10-28 15:24:55,Lifecycle Stage,jerwin,Larvae,0.7442281246185303
+2025-10-28 15:26:04,Species Identification,jerwin,Butterfly-Common Lime,0.43846356868743896
+2025-10-28 15:26:26,Species Identification,jerwin,Butterfly-Common Lime,0.43846356868743896
+2025-10-28 15:26:50,Species Identification,jerwin,Butterfly-Paper Kite,0.9952870607376099
