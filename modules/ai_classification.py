@@ -408,7 +408,7 @@ class ButterflyApp:
         if classifier_type == "Larval Diseases":
             rec_info = LARVAL_DISEASES_INFO.get(class_name, {})
             if rec_info:
-                recommendations.append(rec_info.get('treatment_info'))
+                recommendations.append(rec_info.get('treatment_info','symptoms','mortality_rate','prevention'))
             
         # Recommendations for Pupae Defects
         elif classifier_type == "Pupae Defects":
