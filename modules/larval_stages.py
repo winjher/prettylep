@@ -297,13 +297,27 @@ def larval_stages_app():
         )
         
         image_file = st.file_uploader("Upload an Image", type=["jpg", "png", "jpeg"])
-
+        
         if image_file is not None:
             # **FIXED:** Removed redundant pre-processing code that would crash if no file was uploaded
             # The actual image loading is now inside the classifier function
             
-            st.image(image_file, caption='Uploaded Image', width='content')
-            
+            #st.image(image_file, caption='Uploaded Image', width='content')
+            st.image(st.session_state.image, caption="Uploaded Image", width='content')
+            upload_option = st.radio("Image Source", ["Upload File", "Camera Capture"])
+        
+        if upload_option == "Upload File":
+            uploaded_file = st.file_uploader(
+                "Upload Larva Image", type=["jpg", "jpeg", "png"],
+                help="Upload a clear image of the larva for analysis"
+            )
+            if uploaded_file:
+                st.session_state.image = Image.open(uploaded_file)
+        else:
+            camera_image = st.camera_input("Take a photo")
+            if camera_image:
+                st.session_state.image = Image.open(camera_image)
+
             if st.button("Classify Image", key="classify_btn"):
                 if larval_stages_model:
                     with st.spinner('Classifying...'):
@@ -354,7 +368,7 @@ def larval_stages_app():
 
                         # Display top 3 predictions in a structured list
                         for i, pred in enumerate(top_predictions_data, 1):
-                            st.write(f"**{i}. {pred['larval_stages_names']}**: {pred['score']:.2f}%", width='content')
+                            st.write(f"**{i}. {pred['larval_stages_names']}**: {pred['score']:.2f}%")#, width='content'
                     else:
                         st.warning("Classification failed or model returned an unknown class.")
                 else:
@@ -378,7 +392,7 @@ def larval_stages_app():
             "Pupa (days)": [d[5] for d in LIFECYCLE_DURATIONS.values()],
         }
         df = pd.DataFrame(data)
-        st.dataframe(df, width='content')
+        st.dataframe(df)#, width='content'
        
        
 
