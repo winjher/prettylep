@@ -2,7 +2,8 @@
 tensorflow==2.20.0
 jax==0.4.38
 jaxlib==0.4.38
-ml-dtypes==0.2.0
+ml-dtypes>=0.5.1,<1.0.0
+
  # Compatible with TensorFlow, JAX, Streamlit, scikit-learn
 numpy==1.3.0
 #pipdeptree==2.13.0
