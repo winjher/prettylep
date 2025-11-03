@@ -124,3 +124,4 @@ timestamp,analysis_type,user,predicted_species,species_confidence,predicted_stag
 2025-10-28 15:26:04,Species Identification,jerwin,Butterfly-Common Lime,0.43846356868743896
 2025-10-28 15:26:26,Species Identification,jerwin,Butterfly-Common Lime,0.43846356868743896
 2025-10-28 15:26:50,Species Identification,jerwin,Butterfly-Paper Kite,0.9952870607376099
+2025-11-03 18:24:07,Pupae Defect Analysis,dennis,Deformed body,0.8586932420730591
