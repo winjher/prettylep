@@ -302,21 +302,21 @@ def larval_stages_app():
             # **FIXED:** Removed redundant pre-processing code that would crash if no file was uploaded
             # The actual image loading is now inside the classifier function
             
-            #st.image(image_file, caption='Uploaded Image', width='content')
-            st.image(st.session_state.image, caption="Uploaded Image", width='content')
-            upload_option = st.radio("Image Source", ["Upload File", "Camera Capture"])
+            st.image(image_file, caption='Uploaded Image', width='content')
+            #st.image(st.session_state.image, caption="Uploaded Image", width='content')
+        #     upload_option = st.radio("Image Source", ["Upload File", "Camera Capture"])
         
-        if upload_option == "Upload File":
-            uploaded_file = st.file_uploader(
-                "Upload Larva Image", type=["jpg", "jpeg", "png"],
-                help="Upload a clear image of the larva for analysis"
-            )
-            if uploaded_file:
-                st.session_state.image = Image.open(uploaded_file)
-        else:
-            camera_image = st.camera_input("Take a photo")
-            if camera_image:
-                st.session_state.image = Image.open(camera_image)
+        # if upload_option == "Upload File":
+        #     uploaded_file = st.file_uploader(
+        #         "Upload Larva Image", type=["jpg", "jpeg", "png"],
+        #         help="Upload a clear image of the larva for analysis"
+        #     )
+        #     if uploaded_file:
+        #         st.session_state.image = Image.open(uploaded_file)
+        # else:
+        #     camera_image = st.camera_input("Take a photo")
+        #     if camera_image:
+        #         st.session_state.image = Image.open(camera_image)
 
             if st.button("Classify Image", key="classify_btn"):
                 if larval_stages_model:
