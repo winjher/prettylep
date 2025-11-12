@@ -1,9 +1,12 @@
 import streamlit as st
 import os
+import plotly.express as px
+from io import StringIO 
+import pandas as pd
 #from modules.database import init_database
 from modules.auth import handle_authentication
 from modules.breeding_management import breeding_management_app
-from modules.ai_classification import ai_classification_app
+from modules.ai_classification import ai_classification_app, load_from_csv
 #from modules.point_of_sale import point_of_sale_app
 #from modules.sales_tracking import sales_tracking_app
 #from modules.booking_system import booking_system_app
@@ -558,9 +561,52 @@ def main():
 
 def dashboard_app():
     """Dashboard overview of the entire ecosystem"""
-
-    # Show enhanced landing page with signup bonus
-    # enhanced_landing_page()
+    # st.title("🦋 LepVision Dashboard")
+    # st.markdown("Welcome to the LepVision Dashboard! Here you can get an overview of your butterfly breeding ecosystem.")
+    # # Display key metrics
+    # col1, col2, col3, col4 = st.columns(4)
+    # with col1:
+    #     active_batches = get_active_batches_count()
+    #     st.metric("Active Breeding Batches", active_batches)
+    # with col2:
+    #     species_count = get_species_count()
+    #     st.metric("Butterfly Species", species_count)
+    # with col3:
+    #     monthly_sales = get_monthly_sales()
+    #     st.metric("Monthly Sales", monthly_sales)
+    # with col4:
+    #     booking_count = get_booking_count()
+    #     st.metric("Farm Bookings", booking_count)
+    # # Additional insights for premium users
+    # #import pandas as pd
+    # classifications_df = pd.read_csv("ai_classifications.csv")
+    # st.write("**Classification Statistics:**")
+    # col1, col2, col3, col4, col5, col6 = st.columns(6)
+            
+    # with col1:
+    #     st.metric("Total Classifications", len(classifications_df))
+    # with col2:
+    #     # Count non-empty species classifications
+    #     species_count = classifications_df['predicted_species'].notna().sum()
+    #     st.metric("Species Identified", species_count)
+    # with col3:
+    #     # Count non-empty life stage classifications
+    #     stage_count = classifications_df['predicted_stage'].notna().sum()
+    #     st.metric("Life Stages Classified", stage_count)
+    # with col4:
+    #     # Count non-empty larval disease classifications
+    #     disease_count = classifications_df['predicted_disease'].notna().sum()
+    #     st.metric("Larval Diseases Classified", disease_count)
+    # with col5:
+    #     # Count non-empty pupae defect classifications
+    #     defect_count = classifications_df['predicted_defect'].notna().sum()
+    #     st.metric("Pupae Defects Classified", defect_count)
+    # with col6:
+    #     today = datetime.date.today().strftime('%Y-%m-%d')
+    #     today_classifications = len(classifications_df[classifications_df['timestamp'].astype(str).str.startswith(today)])
+    #     st.metric("Today's Classifications", today_classifications)
+    from modules.LepVision_dashboard import dashboard_app as lepvision_dashboard_app
+    lepvision_dashboard_app()
 
 def get_active_batches_count():
     """Get count of active breeding batches"""

@@ -189,7 +189,7 @@ def make_prediction(rf_model, dl_model, scaler_X, final_features, user_inputs):
 def main():
     st.set_page_config(layout="wide", page_title="Lepidoptera Pupae Harvest Predictor")
 
-    st.title("🦋 Lepidoptera Harvest Yield Estimator")
+    st.title("🦋 Pupae Harvest Yield Estimator")
     st.markdown("A Machine Learning tool to predict pupae harvest (grams/tray) based on environmental, larval, and critical risk factors.")
     st.sidebar.header("Model Training Status")
 
@@ -245,8 +245,8 @@ def main():
     col3.header("Risk Assessment Scores (0=Low, 10=High)")
     
     # Scores are based on observed deviation or testing results
-    input_obs = col3.slider("Larval Development Observations (Deviation)", 0.0, 10.0, 1.0, 0.1)
-    col3.caption("Score higher for poor color, slow growth, or unusual behavior.")
+    # input_obs = col3.slider("Larval Development Observations (Deviation)", 0.0, 10.0, 1.0, 0.1)
+    # col3.caption("Score higher for poor color, slow growth, or unusual behavior.")
     
     input_contam = col3.slider("Ant's Pee Chemical Contamination Score", 0.0, 10.0, 0.5, 0.1)
     col3.caption("Score based on lab testing of substrate for formicine acids/ammonia traces.")

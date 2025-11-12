@@ -125,3 +125,9 @@ timestamp,analysis_type,user,predicted_species,species_confidence,predicted_stag
 2025-10-28 15:26:26,Species Identification,jerwin,Butterfly-Common Lime,0.43846356868743896
 2025-10-28 15:26:50,Species Identification,jerwin,Butterfly-Paper Kite,0.9952870607376099
 2025-11-03 18:24:07,Pupae Defect Analysis,dennis,Deformed body,0.8586932420730591
+2025-11-03 22:10:15,Species Identification,jerwin,Butterfly-Common Mime,0.933829665184021
+2025-11-07 15:29:43,Lifecycle Stage,jerwin,Butterfly,1.0
+2025-11-07 15:30:17,Species Identification,jerwin,Butterfly-Gray Glassy Tiger,0.6858402490615845
+2025-11-12 07:50:41,Lifecycle Stage,jerwin,Butterfly,0.9999998807907104
+2025-11-12 07:50:53,Lifecycle Stage,jerwin,Butterfly,0.9999998807907104
+2025-11-12 07:51:06,Species Identification,jerwin,Butterfly-Gray Glassy Tiger,0.6382573843002319

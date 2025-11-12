@@ -106,7 +106,7 @@ class ButterflyApp:
         """Displays the main UI for image upload and analysis."""
         st.session_state.analysis_type = st.selectbox("Analysis Type", [
             "Complete Analysis (All Models)", "Species Identification", "Lifecycle Stage",
-            "Larval Disease Detection", "Pupae Defect Analysis"
+            "Larval Disease Detection", "Pupae Defect Analysis", "Larval Stages"
         ])
         
         upload_option = st.radio("Image Source", ["Upload File", "Camera Capture"])
@@ -216,6 +216,19 @@ class ButterflyApp:
                         "confidence": defect_result['score'] / 100,
                         "quality_info": defect_result.get('quality_info', 'No quality information available'),
                         "details": defect_result
+                    }
+            if analysis_type in ["Complete Analysis (All Models)", "Larval Stages"]:
+                img_buffer.seek(0)
+                defect_result = self._classify_image(
+                    img_buffer, self._models['larvalstages_model'], 
+                    self._class_info['larvalstages_names'], self._class_info['larvalstages_info']
+                )
+                if larval_result:
+                    results["larval_stages"] = {
+                        "predicted_class": larval_result['class_name'],
+                        "confidence": larval_result['score'] / 100,
+                        "quality_info": larval_result.get('quality_info', 'No quality information available'),
+                        "details": larval_result
                     }
         except Exception as e:
             st.error(f"Classification error: {str(e)}")
@@ -376,6 +389,7 @@ class ButterflyApp:
                 st.write("**Recommendations:**")
                 for rec in recommendations:
                     st.write(f"• {rec}")
+                
 
     def _calculate_health_score_and_grade(self, classification_result, classifier_type):
         """Calculate health score and quality grade based on classification results."""
