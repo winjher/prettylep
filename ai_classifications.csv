@@ -131,3 +131,6 @@ timestamp,analysis_type,user,predicted_species,species_confidence,predicted_stag
 2025-11-12 07:50:41,Lifecycle Stage,jerwin,Butterfly,0.9999998807907104
 2025-11-12 07:50:53,Lifecycle Stage,jerwin,Butterfly,0.9999998807907104
 2025-11-12 07:51:06,Species Identification,jerwin,Butterfly-Gray Glassy Tiger,0.6382573843002319
+2025-11-12 12:55:20,Species Identification,jerwin,Butterfly-Clippers,0.8629036545753479
+2025-11-13 09:19:00,Pupae Defect Analysis,jerwin,Stretch abdomen,0.9960262775421143
+2025-11-13 09:34:48,Lifecycle Stage,jerwin,Pupae,0.9997357726097107

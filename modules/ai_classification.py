@@ -527,19 +527,23 @@ class ButterflyApp:
                 st.metric("Total Classifications", len(classifications_df))
             with col2:
                 # Count non-empty species classifications
-                species_count = classifications_df['predicted_species'].notna().sum()
+                species_count = (classifications_df['analysis_type']
+                .isin(["Complete Analysis (All Models)", "Species Identification"])).sum()
                 st.metric("Species Identified", species_count)
             with col3:
                 # Count non-empty life stage classifications
-                stage_count = classifications_df['predicted_stage'].notna().sum()
+                stage_count = (classifications_df['analysis_type']
+               .isin(["Complete Analysis (All Models)", "Lifecycle Stage"])).sum()
                 st.metric("Life Stages Classified", stage_count)
             with col4:
                 # Count non-empty larval disease classifications
-                disease_count = classifications_df['predicted_disease'].notna().sum()
+                disease_count = (classifications_df['analysis_type']
+                 .isin(["Complete Analysis (All Models)", "Larval Disease Detection"])).sum()
                 st.metric("Larval Diseases Classified", disease_count)
             with col5:
                 # Count non-empty pupae defect classifications
-                defect_count = classifications_df['predicted_defect'].notna().sum()
+                defect_count = (classifications_df['analysis_type']
+                 .isin(["Complete Analysis (All Models)", "Pupae Defect Analysis"])).sum()
                 st.metric("Pupae Defects Classified", defect_count)
             with col6:
                 today = datetime.date.today().strftime('%Y-%m-%d')
