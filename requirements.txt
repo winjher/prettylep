@@ -8,7 +8,7 @@ distinctipy==1.3.4
 aiofiles==23.2.1
 python-decouple==3.8
 scikit-learn>=1.7
-streamlit>=1.50
+streamlit
 pillow
 pandas
 opencv-python-headless
