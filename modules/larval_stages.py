@@ -248,7 +248,7 @@ def _display_recent_classifications():
         recent = df.sort_values('timestamp', ascending=False).head(10)
         
         # Display the table
-        st.dataframe(recent, width='content')
+        st.dataframe(recent_df, width=700, height=300)
 
         st.write("**Classification Statistics:**")
         col1, col2 = st.columns(2)
