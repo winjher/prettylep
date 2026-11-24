@@ -82,7 +82,6 @@ class ButterflyApp:
             'pupaedefects_info': PUPAE_DEFECTS_INFO,
             'pupaedefects_names': list(PUPAE_DEFECTS_INFO.keys()),
             'larvaldiseases_info': LARVAL_DISEASES_INFO,
-            'larvaldiseases_names': list(LARVAL_DISEASES_INFO.keys())
         }
 
     def _check_model_directory(self):
